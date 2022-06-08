@@ -8,7 +8,7 @@ from sys import executable
 import time
 from telegram import ParseMode
 from telegram.ext import CommandHandler, run_async
-from bot import dispatcher, updater, botStartTime
+from bot import dispatcher, updater, botStartTime, OWNER_ID
 from bot.helper.ext_utils import fs_utils
 from bot.helper.telegram_helper.bot_commands import BotCommands
 from bot.helper.telegram_helper.message_utils import *
@@ -111,6 +111,12 @@ def main():
             restart_message = pickle.load(status)
         restart_message.edit_text("Restarted Successfully!")
         remove('restart.pickle')
+    elif OWNER_ID:
+        try:
+            text = "<b>Bot Restarted!</b>"
+            sendMessage(chat_id=OWNER_ID, text=text, parse_mode=ParseMode.HTML)
+        except Exception as e:
+            LOGGER.warning(e)
 
     start_handler = CommandHandler(BotCommands.StartCommand, start,
                                    filters=CustomFilters.authorized_chat | CustomFilters.authorized_user)
