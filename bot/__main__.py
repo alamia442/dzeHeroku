@@ -114,7 +114,7 @@ def main():
     elif OWNER_ID:
         try:
             text = "<b>Bot Restarted!</b>"
-            sendMessage(chat_id=OWNER_ID, text=text, parse_mode=ParseMode.HTML)
+            bot.sendMessage(chat_id=OWNER_ID, text=text, parse_mode=ParseMode.HTML)
         except Exception as e:
             LOGGER.warning(e)
 
